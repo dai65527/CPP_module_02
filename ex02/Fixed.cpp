@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:06:02 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:14:31 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,22 @@ Fixed::~Fixed(void) {}
 Fixed &Fixed::operator=(const Fixed &fixed) {
   raw_ = fixed.getRawBits();
   return (*this);
+}
+
+bool Fixed::operator>(const Fixed &fixed) const {
+  return (raw_ > fixed.raw_);
+}
+
+bool Fixed::operator<(const Fixed &fixed) const {
+  return (raw_ < fixed.raw_);
+}
+
+bool Fixed::operator>=(const Fixed &fixed) const {
+  return (raw_ >= fixed.raw_);
+}
+
+bool Fixed::operator<=(const Fixed &fixed) const {
+  return (raw_ <= fixed.raw_);
 }
 
 bool Fixed::operator==(const Fixed &fixed) const {

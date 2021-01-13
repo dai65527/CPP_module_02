@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:05:42 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:13:21 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ class Fixed {
   ~Fixed(void);
 
   Fixed &operator=(const Fixed &fixed);
+  bool operator>(const Fixed &fixed) const;
+  bool operator<(const Fixed &fixed) const;
+  bool operator>=(const Fixed &fixed) const;
+  bool operator<=(const Fixed &fixed) const;
   bool operator==(const Fixed &fixed) const;
   bool operator!=(const Fixed &fixed) const;
 
