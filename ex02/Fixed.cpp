@@ -6,27 +6,19 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 18:56:46 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:03:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
 #include <cmath>
-#include <iostream>
 
-Fixed::Fixed(void) {
-  std::cout << "Default constructor called" << std::endl;
-  raw_ = 0;
-}
+Fixed::Fixed(void) { raw_ = 0; }
 
-Fixed::Fixed(const Fixed &fixed) {
-  std::cout << "Copy constructor called" << std::endl;
-  *this = fixed;
-}
+Fixed::Fixed(const Fixed &fixed) { *this = fixed; }
 
 Fixed::Fixed(const int int_to_initialize) {
-  std::cout << "Int constructor called" << std::endl;
   if (int_to_initialize > (int)FIXED8_MAX) {
     raw_ = 0x7FFFFFFF;
     return;
@@ -69,8 +61,6 @@ Fixed::Fixed(const float float_to_initialize) {
   uint32_t frac;
   int offset;
 
-  std::cout << "Float constructor called" << std::endl;
-
   if (check_float(float_to_initialize)) return;
   memcpy(&bit, &float_to_initialize, sizeof(bit));
   exp = bit >> 23;
@@ -90,8 +80,9 @@ Fixed::Fixed(const float float_to_initialize) {
   }
 }
 
+Fixed::~Fixed(void) {}
+
 Fixed &Fixed::operator=(const Fixed &fixed) {
-  std::cout << "Assignation operator called" << std::endl;
   raw_ = fixed.getRawBits();
   return (*this);
 }
@@ -99,8 +90,6 @@ Fixed &Fixed::operator=(const Fixed &fixed) {
 bool Fixed::operator==(const Fixed &fixed) const {
   return (raw_ == fixed.raw_);
 }
-
-Fixed::~Fixed(void) { std::cout << "Destructor called" << std::endl; }
 
 int Fixed::getRawBits(void) const { return (raw_); }
 
