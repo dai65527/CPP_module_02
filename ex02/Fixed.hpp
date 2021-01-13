@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 17:45:32 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 18:52:50 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ class Fixed {
   Fixed(const int int_to_initialize);
   Fixed(const float float_to_initialize);
   Fixed(const Fixed &fixed);
-  Fixed &operator=(const Fixed &fixed);
   ~Fixed(void);
+
+  Fixed &operator=(const Fixed &fixed);
+  bool operator==(const Fixed &fixed) const;
 
   int getRawBits(void) const;
   void setRawBits(int const raw);

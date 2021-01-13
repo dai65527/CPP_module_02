@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 17:56:17 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 18:56:46 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ Fixed &Fixed::operator=(const Fixed &fixed) {
   std::cout << "Assignation operator called" << std::endl;
   raw_ = fixed.getRawBits();
   return (*this);
+}
+
+bool Fixed::operator==(const Fixed &fixed) const {
+  return (raw_ == fixed.raw_);
 }
 
 Fixed::~Fixed(void) { std::cout << "Destructor called" << std::endl; }
