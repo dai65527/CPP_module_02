@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 07:01:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 07:31:52 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ int main(void) {
   res = d * a;
   std::cout << d << " * " << a << " = " << res << std::endl;
   res = c * z;
-  std::cout << d << " * " << a << " = " << res << std::endl;
+  std::cout << c << " * " << z << " = " << res << std::endl;
   res = z * a;
-  std::cout << d << " * " << a << " = " << res << std::endl;
+  std::cout << z << " * " << a << " = " << res << std::endl;
 
   std::cout << std::endl;
 

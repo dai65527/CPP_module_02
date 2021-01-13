@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 00:09:38 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 07:46:53 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 #include <cmath>
 #include <iostream>
+
+static void *ft_memcpy(void *dst, const void *src, size_t n) {
+  size_t i;
+  char *dst_c;
+  char *src_c;
+
+  if (!dst && !src) return (NULL);
+  dst_c = (char *)dst;
+  src_c = (char *)src;
+  i = 0;
+  while (i < n) {
+    dst_c[i] = src_c[i];
+    i++;
+  }
+  return (dst);
+}
 
 Fixed::Fixed(void) {
   std::cout << "Default constructor called" << std::endl;
@@ -44,7 +60,7 @@ Fixed::Fixed(const int int_to_initialize) {
 static bool ft_isnan_f(const float nb) {
   uint32_t bit;
 
-  memcpy(&bit, &nb, sizeof(uint32_t));
+  ft_memcpy(&bit, &nb, sizeof(uint32_t));
   return (((bit & (0xFF << 23)) == (0xFF << 23)) && (bit & 0x7FFFFF));
 }
 
@@ -72,7 +88,7 @@ Fixed::Fixed(const float float_to_initialize) {
   std::cout << "Float constructor called" << std::endl;
 
   if (check_float(float_to_initialize)) return;
-  memcpy(&bit, &float_to_initialize, sizeof(bit));
+  ft_memcpy(&bit, &float_to_initialize, sizeof(bit));
   exp = bit >> 23;
   frac = (bit & 0x7FFFFF) | (1 << 23);
   offset = (23 - fractional_bits_ - (exp - 127));
@@ -102,12 +118,7 @@ int Fixed::getRawBits(void) const { return (raw_); }
 
 void Fixed::setRawBits(int const raw) { raw_ = raw; }
 
-int Fixed::toInt(void) const {
-  if (raw_ >= 0)
-    return (raw_ >> 8);
-  else
-    return (-(-raw_ >> 8));
-}
+int Fixed::toInt(void) const { return (roundf(toFloat())); }
 
 float Fixed::toFloat(void) const {
   int i;
@@ -124,10 +135,11 @@ float Fixed::toFloat(void) const {
       fractional_part += base;
     }
   }
-  if (raw_ >= 0)
-    return (this->toInt() + fractional_part);
-  else
-    return (this->toInt() - fractional_part);
+  if (raw_ >= 0) {
+    return ((raw_ >> 8) + fractional_part);
+  } else {
+    return (-(-raw_ >> 8) - fractional_part);
+  }
 }
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
