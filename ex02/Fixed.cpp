@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 23:19:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 00:32:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ Fixed::Fixed(const float float_to_initialize) {
     raw_ = frac << -offset;
   }
   if (float_to_initialize < 0) {
-    raw_ = (raw_ & 0xFF) | (((~raw_) & 0xFFFFFF00) + (1 << 8));
+    raw_ = -raw_;
   }
 }
 
@@ -130,22 +130,15 @@ int Fixed::sumPosAndNeg(int raw_pos, int raw_neg) {
   return (raw_res);
 }
 
-Fixed Fixed::operator+(void) const {
-  Fixed result(*this);
-  return (result);
-}
-
 Fixed Fixed::operator+(const Fixed &fixed) const {
   Fixed result;
 
-  if ((raw_ <= 0 && fixed.raw_ <= 0) || (raw_ >= 0 && fixed.raw_ >= 0)) {
-    result.raw_ = raw_ + fixed.raw_;
-  } else if (raw_ > fixed.raw_) {
-    result.raw_ = sumPosAndNeg(raw_, fixed.raw_);
-  } else {  // raw_ < fixed.raw_
-    result.raw_ = sumPosAndNeg(fixed.raw_, raw_);
-  }
+  result.setRawBits(raw_ + fixed.getRawBits());
   return (result);
+}
+
+Fixed Fixed::operator+(void) const {
+  return (Fixed(*this));
 }
 
 Fixed Fixed::operator-(const Fixed &fixed) const {
@@ -155,8 +148,7 @@ Fixed Fixed::operator-(const Fixed &fixed) const {
 Fixed Fixed::operator-(void) const {
   Fixed result;
 
-  result.setRawBits((this->raw_ & 0xFF) |
-                    (((~this->raw_) & 0xFFFFFF00) + (1 << 8)));
+  result.setRawBits(-raw_);
   return (result);
 }
 
@@ -164,26 +156,32 @@ int Fixed::getRawBits(void) const { return (raw_); }
 
 void Fixed::setRawBits(int const raw) { raw_ = raw; }
 
-int Fixed::toInt(void) const { return (raw_ >> 8); }
+int Fixed::toInt(void) const {
+  if (raw_ >= 0)
+    return (raw_ >> 8);
+  else
+    return (-(-raw_ >> 8));
+}
 
 float Fixed::toFloat(void) const {
   int i;
+  int raw;
   float base;
   float fractional_part;
 
+  raw = (raw_ >= 0) ? raw_ : -raw_;
   base = 1.0;
   fractional_part = 0.0;
   for (i = 0; i < 8; i++) {
     base /= 2.0;
-    if (raw_ & (1 << (7 - i))) {
+    if (raw & (1 << (7 - i))) {
       fractional_part += base;
     }
   }
-  if (raw_ >= 0) {
-    return ((float)(raw_ >> 8) + fractional_part);
-  } else {
-    return ((float)(raw_ >> 8) - fractional_part);
-  }
+  if (raw_ >= 0)
+    return (this->toInt() + fractional_part);
+  else
+    return (this->toInt() - fractional_part);
 }
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
