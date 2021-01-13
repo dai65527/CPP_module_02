@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 07:46:20 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 08:09:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,29 +123,6 @@ bool Fixed::operator!=(const Fixed &fixed) const {
   return (raw_ != fixed.raw_);
 }
 
-int Fixed::sumPosAndNeg(int raw_pos, int raw_neg) {
-  int raw_res;
-
-  if ((raw_pos & 0xFFFFFF00) >= -(raw_neg & 0xFFFFFF00)) {
-    if ((raw_pos & 0xFF) >= (raw_neg & 0xFF)) {
-      raw_res = (raw_pos & 0xFF) - (raw_neg & 0xFF);
-      raw_res |= (raw_pos & 0xFFFFFF00) + (raw_neg & 0xFFFFFF00);
-    } else {
-      raw_res = (raw_pos & 0xFF) + 0x100 - (raw_neg & 0xFF);
-      raw_res |= (raw_pos & 0xFFFFFF00) - 0x100 + (raw_neg & 0xFFFFFF00);
-    }
-  } else {
-    if ((raw_pos & 0xFF) >= (raw_neg & 0xFF)) {
-      raw_res = (raw_neg & 0xFF) + 0x100 - (raw_pos & 0xFF);
-      raw_res |= (raw_pos & 0xFFFFFF00) + 0x100 + (raw_neg & 0xFFFFFF00);
-    } else {
-      raw_res = (raw_neg & 0xFF) - (raw_pos & 0xFF);
-      raw_res |= (raw_pos & 0xFFFFFF00) + (raw_neg & 0xFFFFFF00);
-    }
-  }
-  return (raw_res);
-}
-
 Fixed Fixed::operator+(const Fixed &fixed) const {
   Fixed result;
 
@@ -173,6 +150,23 @@ Fixed Fixed::operator*(const Fixed &fixed) const {
   return (result);
 }
 
+Fixed Fixed::operator/(const Fixed &fixed) const {
+  Fixed result;
+
+  if (fixed.getRawBits() == 0) {
+    if (raw_ < 0) {
+      result.setRawBits(-0x80000000);
+    } else if (raw_ == 0) {
+      result.setRawBits(0);
+    } else {
+      result.setRawBits(0x7FFFFFFF);
+    }
+  } else {
+    result.setRawBits((raw_ << 8) / fixed.getRawBits());
+  }
+  return (result);
+}
+
 int Fixed::getRawBits(void) const { return (raw_); }
 
 void Fixed::setRawBits(int const raw) { raw_ = raw; }
@@ -194,7 +188,7 @@ float Fixed::toFloat(void) const {
       fractional_part += base;
     }
   }
-  if (raw_ >= 0) {
+  if (raw_ >= 0 || raw_ == (int)0x80000000) {
     return ((raw_ >> 8) + fractional_part);
   } else {
     return (-(-raw_ >> 8) - fractional_part);

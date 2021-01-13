@@ -6,11 +6,12 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 07:31:52 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 08:11:34 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+
 #include "Fixed.hpp"
 
 int main(void) {
@@ -139,6 +140,30 @@ int main(void) {
   std::cout << c << " * " << z << " = " << res << std::endl;
   res = z * a;
   std::cout << z << " * " << a << " = " << res << std::endl;
+
+  std::cout << std::endl;
+
+  std::cout << "\033[1mOperator \"/\" test \033[0m" << std::endl;
+  res = a / b;
+  std::cout << a << " / " << b << " = " << res << std::endl;
+  res = b / a;
+  std::cout << b << " / " << a << " = " << res << std::endl;
+  res = c / d;
+  std::cout << c << " / " << d << " = " << res << std::endl;
+  res = d / c;
+  std::cout << d << " / " << c << " = " << res << std::endl;
+  res = a / c;
+  std::cout << a << " / " << c << " = " << res << std::endl;
+  res = a / d;
+  std::cout << a << " / " << d << " = " << res << std::endl;
+  res = c / b;
+  std::cout << c << " / " << b << " = " << res << std::endl;
+  res = d / a;
+  std::cout << d << " / " << a << " = " << res << std::endl;
+  res = c / z;
+  std::cout << c << " / " << z << " = " << res << std::endl;
+  res = z / a;
+  std::cout << z << " / " << a << " = " << res << std::endl;
 
   std::cout << std::endl;
 
