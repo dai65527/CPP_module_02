@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 17:56:17 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 00:09:38 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ Fixed::Fixed(const float float_to_initialize) {
     raw_ = frac << -offset;
   }
   if (float_to_initialize < 0) {
-    raw_ = (raw_ & 0xFF) | (((~raw_) & 0xFFFFFF00) + (1 << 8));
+    raw_ = -raw_;
   }
 }
 
@@ -102,26 +102,32 @@ int Fixed::getRawBits(void) const { return (raw_); }
 
 void Fixed::setRawBits(int const raw) { raw_ = raw; }
 
-int Fixed::toInt(void) const { return (raw_ >> 8); }
+int Fixed::toInt(void) const {
+  if (raw_ >= 0)
+    return (raw_ >> 8);
+  else
+    return (-(-raw_ >> 8));
+}
 
 float Fixed::toFloat(void) const {
   int i;
+  int raw;
   float base;
   float fractional_part;
 
+  raw = (raw_ >= 0) ? raw_ : -raw_;
   base = 1.0;
   fractional_part = 0.0;
   for (i = 0; i < 8; i++) {
     base /= 2.0;
-    if (raw_ & (1 << (7 - i))) {
+    if (raw & (1 << (7 - i))) {
       fractional_part += base;
     }
   }
-  if (raw_ >= 0) {
-    return ((float)(raw_ >> 8) + fractional_part);
-  } else {
-    return ((float)(raw_ >> 8) - fractional_part);
-  }
+  if (raw_ >= 0)
+    return (this->toInt() + fractional_part);
+  else
+    return (this->toInt() - fractional_part);
 }
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
