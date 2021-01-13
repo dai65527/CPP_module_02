@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 18:58:32 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:11:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,15 @@ int main(void) {
   Fixed b(21.21f);
   Fixed c(42.42f);
 
+  std::cout << "\033[1mOperator \"==\" test \033[0m" << std::endl;
   std::cout << a << " == " << b << " is " << (a == b) << std::endl;
   std::cout << a << " == " << c << " is " << (a == c) << std::endl;
-  // std::cout << a << " * " << b << " = " << c << std::endl;
-  return 0;
+
+  std::cout << std::endl;
+
+  std::cout << "\033[1mOperator \"!=\" test \033[0m" << std::endl;
+  std::cout << a << " != " << b << " is " << (a != b) << std::endl;
+  std::cout << a << " != " << c << " is " << (a != c) << std::endl;
+
+  return (0);
 }
