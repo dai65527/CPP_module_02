@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:13:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:36:50 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ class Fixed {
   bool operator<=(const Fixed &fixed) const;
   bool operator==(const Fixed &fixed) const;
   bool operator!=(const Fixed &fixed) const;
+  Fixed operator+(const Fixed &fixed) const;
+  Fixed operator-(const Fixed &fixed) const;
 
   int getRawBits(void) const;
   void setRawBits(int const raw);

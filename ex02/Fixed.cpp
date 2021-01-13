@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:14:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 19:37:17 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,9 @@ Fixed &Fixed::operator=(const Fixed &fixed) {
   return (*this);
 }
 
-bool Fixed::operator>(const Fixed &fixed) const {
-  return (raw_ > fixed.raw_);
-}
+bool Fixed::operator>(const Fixed &fixed) const { return (raw_ > fixed.raw_); }
 
-bool Fixed::operator<(const Fixed &fixed) const {
-  return (raw_ < fixed.raw_);
-}
+bool Fixed::operator<(const Fixed &fixed) const { return (raw_ < fixed.raw_); }
 
 bool Fixed::operator>=(const Fixed &fixed) const {
   return (raw_ >= fixed.raw_);
@@ -109,6 +105,18 @@ bool Fixed::operator==(const Fixed &fixed) const {
 
 bool Fixed::operator!=(const Fixed &fixed) const {
   return (raw_ != fixed.raw_);
+}
+
+Fixed Fixed::operator+(const Fixed &fixed) const {
+  Fixed result;
+  result.raw_ = raw_ + fixed.raw_;
+  return (result);
+}
+
+Fixed Fixed::operator-(const Fixed &fixed) const {
+  Fixed result;
+  result.raw_ = raw_ - fixed.raw_;
+  return (result);
 }
 
 int Fixed::getRawBits(void) const { return (raw_); }
