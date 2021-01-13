@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 22:40:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 23:04:49 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,19 @@ int main(void) {
   std::cout << "\033[1mOperator \"-\" test \033[0m" << std::endl;
   res = a - b;
   std::cout << a << " - " << b << " = " << res << std::endl;
-  res = b - a;
-  std::cout << b << " - " << a << " = " << res << std::endl;
   res = a - c;
   std::cout << a << " - " << c << " = " << res << std::endl;
+  res = a - e;
+  std::cout << a << " - " << e << " = " << res << std::endl;
+  res = f - g;
+  std::cout << f << " - " << g << " = " << res << std::endl;
+  res = i - h;
+  std::cout << h << " - " << i << " = " << res << std::endl;
   res = b - d;
   std::cout << b << " - " << d << " = " << res << std::endl;
+  res = a - d;
+  std::cout << a << " - " << d << " = " << res << std::endl;
+  std::cout << "-" << -d << " = " << res << std::endl;
 
   std::cout << std::endl;
 
