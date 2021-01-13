@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:37:17 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 22:33:19 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,49 @@ bool Fixed::operator!=(const Fixed &fixed) const {
   return (raw_ != fixed.raw_);
 }
 
+int Fixed::sumPosAndNeg(int raw_pos, int raw_neg) {
+  int raw_res;
+
+  if ((raw_pos & 0xFFFFFF00) >= -(raw_neg & 0xFFFFFF00)) {
+    if ((raw_pos & 0xFF) >= (raw_neg & 0xFF)) {
+      raw_res = (raw_pos & 0xFF) - (raw_neg & 0xFF);
+      raw_res |= (raw_pos & 0xFFFFFF00) + (raw_neg & 0xFFFFFF00);
+    } else {
+      raw_res = (raw_pos & 0xFF) + 0x100 - (raw_neg & 0xFF);
+      raw_res |= (raw_pos & 0xFFFFFF00) - 0x100 + (raw_neg & 0xFFFFFF00);
+    }
+  } else {
+    if ((raw_pos & 0xFF) >= (raw_neg & 0xFF)) {
+      raw_res = (raw_neg & 0xFF) + 0x100 - (raw_pos & 0xFF);
+      raw_res |= (raw_pos & 0xFFFFFF00) + 0x100 + (raw_neg & 0xFFFFFF00);
+    } else {
+      raw_res = (raw_neg & 0xFF) - (raw_pos & 0xFF);
+      raw_res |= (raw_pos & 0xFFFFFF00) + (raw_neg & 0xFFFFFF00);
+    }
+  }
+  // } else {  // (raw_pos & 0xFF) < (raw_neg & 0xFF)
+  //   if (abs((int)(raw_pos & 0xFFFFFF00)) >= abs((int)(raw_neg & 0xFFFFFF00))) {
+  //     raw_res = (raw_pos & 0xFF) - (raw_neg & 0xFF);
+  //     raw_res |= (raw_pos & 0xFFFFFF00) + (raw_neg & 0xFFFFFF00);
+  //   } else {
+  //     raw_res = (raw_pos & 0xFF) + 0x100 - (raw_neg & 0xFF);
+  //     raw_res |= (raw_pos & 0xFFFFFF00) - 0x100 + (raw_neg & 0xFFFFFF00);
+  //   }
+  // }
+  return (raw_res);
+  // return (0);
+}
+
 Fixed Fixed::operator+(const Fixed &fixed) const {
   Fixed result;
-  result.raw_ = raw_ + fixed.raw_;
+
+  if ((raw_ <= 0 && fixed.raw_ <= 0) || (raw_ >= 0 && fixed.raw_ >= 0)) {
+    result.raw_ = raw_ + fixed.raw_;
+  } else if (raw_ > fixed.raw_) {
+    result.raw_ = sumPosAndNeg(raw_, fixed.raw_);
+  } else {  // raw_ < fixed.raw_
+    result.raw_ = sumPosAndNeg(fixed.raw_, raw_);
+  }
   return (result);
 }
 

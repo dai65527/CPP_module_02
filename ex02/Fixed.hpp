@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 19:36:50 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 20:44:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ class Fixed {
   static const int fractional_bits_ = 8;
 
   bool check_float(const float float_to_initialize);
+
+  static int sumPosAndNeg(int raw_pos, int raw_neg);
 
  public:
   Fixed(void);
