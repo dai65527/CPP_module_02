@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 00:32:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 06:58:32 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ Fixed Fixed::operator-(void) const {
   Fixed result;
 
   result.setRawBits(-raw_);
+  return (result);
+}
+
+Fixed Fixed::operator*(const Fixed &fixed) const {
+  Fixed result;
+
+  result.setRawBits((raw_ * fixed.getRawBits()) >> 8);
   return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 06:38:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 07:01:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int main(void) {
   res = a - b;
   std::cout << a << " - " << b << " = " << res << std::endl;
   res = b - a;
-  std::cout << a << " - " << b << " = " << res << std::endl;
+  std::cout << b << " - " << a << " = " << res << std::endl;
   res = a - c;
   std::cout << a << " - " << c << " = " << res << std::endl;
   res = a - e;
@@ -111,6 +111,34 @@ int main(void) {
   std::cout << "-(" << a << ") = " << -a << std::endl;
   std::cout << "-(" << d << ") = " << -d << std::endl;
   std::cout << "-(" << z << ") = " << -z << std::endl;
+
+  std::cout << std::endl;
+
+  a = Fixed(4.2f);
+  b = Fixed(2.1f);
+  c = Fixed(-4.2f);
+  d = Fixed(-2.1f);
+  std::cout << "\033[1mOperator \"*\" test \033[0m" << std::endl;
+  res = a * b;
+  std::cout << a << " * " << b << " = " << res << std::endl;
+  res = b * a;
+  std::cout << b << " * " << a << " = " << res << std::endl;
+  res = c * d;
+  std::cout << c << " * " << d << " = " << res << std::endl;
+  res = d * c;
+  std::cout << d << " * " << c << " = " << res << std::endl;
+  res = a * c;
+  std::cout << a << " * " << c << " = " << res << std::endl;
+  res = a * d;
+  std::cout << a << " * " << d << " = " << res << std::endl;
+  res = c * b;
+  std::cout << c << " * " << b << " = " << res << std::endl;
+  res = d * a;
+  std::cout << d << " * " << a << " = " << res << std::endl;
+  res = c * z;
+  std::cout << d << " * " << a << " = " << res << std::endl;
+  res = z * a;
+  std::cout << d << " * " << a << " = " << res << std::endl;
 
   std::cout << std::endl;
 
