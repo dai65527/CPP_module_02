@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 22:59:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 23:19:45 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ int Fixed::sumPosAndNeg(int raw_pos, int raw_neg) {
   return (raw_res);
 }
 
+Fixed Fixed::operator+(void) const {
+  Fixed result(*this);
+  return (result);
+}
+
 Fixed Fixed::operator+(const Fixed &fixed) const {
   Fixed result;
 
@@ -144,11 +149,15 @@ Fixed Fixed::operator+(const Fixed &fixed) const {
 }
 
 Fixed Fixed::operator-(const Fixed &fixed) const {
-  Fixed reversed;
+  return (*this + (-(fixed)));
+}
 
-  reversed.setRawBits((fixed.raw_ & 0xFF) |
-                      (((~fixed.raw_) & 0xFFFFFF00) + (1 << 8)));
-  return (*this + reversed);
+Fixed Fixed::operator-(void) const {
+  Fixed result;
+
+  result.setRawBits((this->raw_ & 0xFF) |
+                    (((~this->raw_) & 0xFFFFFF00) + (1 << 8)));
+  return (result);
 }
 
 int Fixed::getRawBits(void) const { return (raw_); }

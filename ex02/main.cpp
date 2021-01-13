@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 18:41:22 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/13 23:04:49 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/13 23:20:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(void) {
   Fixed g(-21.42f);
   Fixed h(-42.21f);
   Fixed i(21.42f);
+  Fixed z(0);
   Fixed res;
 
   std::cout << "\033[1mOperator \"<\" test \033[0m" << std::endl;
@@ -80,6 +81,9 @@ int main(void) {
   std::cout << b << " + " << d << " = " << res << std::endl;
   res = a + d;
   std::cout << a << " + " << d << " = " << res << std::endl;
+  std::cout << "+(" << a << ") = " << +a << std::endl;
+  std::cout << "+(" << d << ") = " << +d << std::endl;
+  std::cout << "+(" << z << ") = " << +z << std::endl;
 
   std::cout << std::endl;
 
@@ -98,7 +102,9 @@ int main(void) {
   std::cout << b << " - " << d << " = " << res << std::endl;
   res = a - d;
   std::cout << a << " - " << d << " = " << res << std::endl;
-  std::cout << "-" << -d << " = " << res << std::endl;
+  std::cout << "-(" << a << ") = " << -a << std::endl;
+  std::cout << "-(" << d << ") = " << -d << std::endl;
+  std::cout << "-(" << z << ") = " << -z << std::endl;
 
   std::cout << std::endl;
 
