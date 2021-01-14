@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 08:32:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 09:14:42 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ class Fixed {
   Fixed operator++(int zero);
   Fixed &operator--(void);
   Fixed operator--(int zero);
+
+  static Fixed &min(Fixed &a, Fixed &b);
+  static const Fixed &min(const Fixed &a, const Fixed &b);
+  static Fixed &max(Fixed &a, Fixed &b);
+  static const Fixed &max(const Fixed &a, const Fixed &b);
 
   int getRawBits(void) const;
   void setRawBits(int const raw);

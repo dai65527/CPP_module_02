@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 09:05:15 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/14 08:47:15 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/14 09:14:17 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,4 +224,20 @@ float Fixed::toFloat(void) const {
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
   out << fixed.toFloat();
   return (out);
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b){
+  return (a <= b ? a : b);
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b){
+  return (a <= b ? a : b);
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b){
+  return (a >= b ? a : b);
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b){
+  return (a >= b ? a : b);
 }
